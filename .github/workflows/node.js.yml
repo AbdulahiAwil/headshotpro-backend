@@ -1,0 +1,60 @@
+name: Deploy Backend to VPS
+
+on:
+  push:
+    branches: ["main"]
+
+
+jobs:
+  build:
+    runs-on: self-hosted
+    
+    strategy:
+      matrix:
+        node-version: [22.x]
+    
+    steps:
+      # Step 1: Check out the repository
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+      
+      # Step 2: 🔐 CREATE .env FILE FROM GITHUB SECRETS (THE MAGIC!)
+      - name: 🔐 Create .env file from GitHub Secrets
+        run: |
+          cd ${{ github.workspace }}
+          echo "${{ secrets.BACKEND_ENV }}" > .env
+          chmod 600 .env
+          echo "✅ .env file created successfully"
+      
+      # Step 3: Install Bun
+      - name: 🔧 Install Bun
+        run: |
+          export PATH="$HOME/.bun/bin:$PATH"
+          if ! command -v bun &> /dev/null; then
+            echo "📦 Installing Bun..."
+            curl -fsSL https://bun.sh/install | bash
+            export PATH="$HOME/.bun/bin:$PATH"
+          fi
+          bun --version
+      
+      # Step 4: Install dependencies
+      - name: 📦 Install dependencies with Bun
+        run: |
+          cd ${{ github.workspace }}
+          export PATH="$HOME/.bun/bin:$PATH"
+          bun install
+      
+      # Step 5: Build the project
+      - name: 🏗️ Build the project
+        run: |
+          cd ${{ github.workspace }}
+          export PATH="$HOME/.bun/bin:$PATH"
+          bun run build
+      
+      # Step 6: Restart the application
+      - name: 🚀 Restart Application
+        run: |
+          cd ${{ github.workspace }}
+          pm2 restart backend || pm2 start dist/index.js --name backend
+          pm2 save
+          echo "✅ Backend deployment completed successfully!"****
