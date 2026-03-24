@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "bun --watch src/server.ts",
     "start:pro": "bun src/server.ts",
-    "build": "tsc --noEmit"
+    "build": "tsc && bun build src/server.ts --outdir dist --target-node"
   },
   "devDependencies": {
     "@types/bun": "latest",
