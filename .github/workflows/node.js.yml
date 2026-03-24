@@ -55,6 +55,6 @@ jobs:
       - name: 🚀 Restart Application
         run: |
           cd ${{ github.workspace }}
-          pm2 restart backend || pm2 start dist/index.js --name backend
+          pm2 restart backend || pm2 start dist/server.js --name backend
           pm2 save
           echo "✅ Backend deployment completed successfully!"****
