@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "bun --watch src/server.ts",
-    "start:pro": "bun src/server.ts",
+    "start:pro": "bun dist/server.js",
     "build": "tsc && bun build src/server.ts --outdir dist --target-node"
   },
   "devDependencies": {
