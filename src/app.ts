@@ -41,7 +41,8 @@ app.use(cookieParser());
 app.get('/health', apiRateLimitConfig.general,(req, res) => {
     res.json({ 
         status: 'OK' ,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        message: 'Backend is runing smoothly'
     });
 });
 
