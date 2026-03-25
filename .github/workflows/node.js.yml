@@ -44,17 +44,19 @@ jobs:
           export PATH="$HOME/.bun/bin:$PATH"
           bun install
       
-      # Step 5: Build the project
-      - name: 🏗️ Build the project
+  # Step 5: (Optional) Type check only
+      - name: 🔍 Type Check
         run: |
           cd ${{ github.workspace }}
           export PATH="$HOME/.bun/bin:$PATH"
-          bun run build
-      
+          bun run typecheck
+
       # Step 6: Restart the application
       - name: 🚀 Restart Application
         run: |
           cd ${{ github.workspace }}
-          pm2 restart backend || pm2 start dist/server.js --name backend
+          export PATH="$HOME/.bun/bin:$PATH"
+          pm2 delete backend || true
+          pm2 start src/server.ts --name backend --interpreter bun
           pm2 save
-          echo "✅ Backend deployment completed successfully!"****
+          echo "✅ Backend deployment completed successfully!"
