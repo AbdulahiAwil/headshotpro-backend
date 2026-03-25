@@ -21,7 +21,7 @@ const config = {
     port: process.env.PORT || 8000,
 
     database: {
-        url: process.env.MONGODB_URl || 'mongodb://localhost:27017/headshotprorecoding',
+        url: process.env.MONGODB_URL || 'mongodb://localhost:27017/headshotprorecoding',
     },
     frontendUrl: process.env.NODE_ENV === "production" ? process.env.FRONTEND_URL : 'http://localhost:3000',
 
