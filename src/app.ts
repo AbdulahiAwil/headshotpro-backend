@@ -42,7 +42,10 @@ app.get('/health', apiRateLimitConfig.general,(req, res) => {
     res.json({ 
         status: 'OK' ,
         timestamp: new Date().toISOString(),
-        message: 'Backend is runing smoothly without any issues'
+        message: 'Backend is runing smoothly without any issues',
+        frontendUrl: config.frontendUrl,
+        env: config.env,
+        environment: process.env.NODE_ENV,
 
 
     });
