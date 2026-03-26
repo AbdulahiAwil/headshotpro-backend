@@ -59,9 +59,13 @@ app.post('/api/v1/payment/webhook/stripe', express.raw({type: 'application/json'
     } 
 })
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// 4. Body parsing (after webhook route)
+app.use(express.json({ limit: '10mb' })); // Add size limit
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
 app.use(cookieParser());
+
+
 
 app.get('/health', apiRateLimitConfig.general,(req, res) => {
     res.json({ 
