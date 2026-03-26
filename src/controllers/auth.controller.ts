@@ -18,6 +18,7 @@ const cookieOptions = {
   secure: config.env === "production",
   sameSite: "lax" as const,
   path: "/",
+  domain: config.env === "production" ? ".aamosman10.store" : undefined,
 };
 
 export const register = async (req: Request, res: Response) => {
