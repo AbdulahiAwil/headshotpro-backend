@@ -22,6 +22,7 @@ const config = {
 
     database: {
         url: process.env.MONGODB_URL || 'mongodb://localhost:27017/headshotprorecoding',
+        productionUrl: process.env.PROD_DATABASE_URL || ''
     },
     frontendUrl: process.env.NODE_ENV === "production" ? process.env.FRONTEND_URL : 'http://localhost:3000',
 

@@ -1,6 +1,9 @@
 import mongoose from 'mongoose';
 import { CreditPackage } from '@/model/CreditPackage.model';
+import config from '@/config';
+import dns from 'dns';
 
+dns.setServers(['1.1.1.1']);
 
 
 
@@ -13,11 +16,8 @@ const packages = [
 
 async function seed() {
   try {
+    await mongoose.connect('');
 
-    
-    // await mongoose.connect(``);
-
-    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/headshotprorecoding');
     console.log('🌱 Seeding credit packages...');
     
     await CreditPackage.deleteMany({});

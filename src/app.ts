@@ -8,8 +8,10 @@ import { errorResponse } from './util/response';
 import { ingestRoute } from './routes/ingest.route';
 import { apiRateLimitConfig } from './middleware/rateLimit';
 import helmet from 'helmet';
-
+import dns from 'dns';
 const app = express();
+
+dns.setServers(['1.1.1.1', '8.8.8.8']);
 
 // 1. Helmet - Secure HTTP Headers (MUST BE FIRST)
 app.use(helmet({
